@@ -24,7 +24,7 @@ import {NemProvider} from '../providers/nem/nem.provider';
 import {WalletProvider} from '../providers/wallet/wallet.provider';
 import {ContactProvider} from '../providers/contact/contact.provider';
 import {LanguageProvider} from '../providers/language/language.provider';
-
+import { CoinmarketapiProvider } from '../providers/coinmarketapi/coinmarketapi.provider';
 
 import {DivideByExponentialBaseTenPipe} from '../pipes/divide-by-exponential-base-ten.pipe';
 import {FormatLevyPipe} from '../pipes/format-levy.pipe';
@@ -53,6 +53,7 @@ import {MultisigTransactionComponent} from '../pages/transactions/partials/multi
 import {ProvisionNamespaceTransactionComponent} from '../pages/transactions/partials/provision-namespace-transaction/provision-namespace-transaction';
 import {TransferTransactionComponent} from '../pages/transactions/partials/transfer-transaction/transfer-transaction';
 import {MultisigAggregateModificationTransactionComponent} from '../pages/transactions/partials/multisig-aggregate-modification-transaction/multisig-aggregate-modification-transaction';
+
 
 
 
@@ -135,7 +136,8 @@ export function createTranslateLoader(http: Http) {
         AlertProvider,
         ToastProvider,
         ContactProvider,
-        LanguageProvider
+        LanguageProvider,
+    CoinmarketapiProvider
     ]
 })
 export class AppModule {
