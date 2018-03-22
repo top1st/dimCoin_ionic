@@ -19,7 +19,7 @@
 
         <ion-list name="selected-mosaic" radio-group [(ngModel)]="selectedMosaic">
             <ion-item *ngFor="let mosaic of balance">
-                <ion-radio [value]="mosaic" (ionChange)="onChangeRateValue(thirdCurrency)"></ion-radio>
+                <ion-radio [value]="mosaic" (ionSelect)="onChangeRateValue(thirdCurrency)"></ion-radio>
 
                 <ion-label><b>
                     {{ mosaic.amount }}</b>
