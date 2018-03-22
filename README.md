@@ -1,0 +1,2 @@
+# dimCoin_ionic
+dimcoin 
