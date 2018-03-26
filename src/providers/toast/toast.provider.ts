@@ -43,6 +43,15 @@ export class ToastProvider {
         });
     }
 
+    showRecipientAddressCopyCorrect() {
+        let toast = this.toast.create({
+            message: 'Recipient address has been copied',
+            duration: 3000,
+            position: 'bottom'
+        });
+        toast.present();
+    }
+
 
     showPrivateKeyCopyCorrect() {
         this.translate.get('ALERT_PRIVATE_KEY_COPIED', {}).subscribe((res: string) => {

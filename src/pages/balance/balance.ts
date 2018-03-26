@@ -45,19 +45,34 @@ export class BalancePage {
         });
     }
 
+    precisionRound(number, precision) {
+        var factor = Math.pow(10, precision);
+        return Math.round(number * factor) / factor;
+      }
+
+    currencyRate(mosaic: MosaicTransferable): string {
+        let exrate = this.marketapi.getExRate(mosaic.mosaicId.description());
+        return `$ ${this.precisionRound(exrate, 3)}`;
+    }
+
+    currencySum(mosaic: MosaicTransferable): string {
+        let exrate = this.marketapi.getExRate(mosaic.mosaicId.description());
+        return `$ ${this.precisionRound(exrate * mosaic.amount, 2)}`;
+    }
+
     compareFn(e1: any, e2: any): boolean {
         let result = e1.name ? e1.name === e2.name : e1 === e2;
         return result;
     }
 
-    onChangeRateValue(value) {
-        if (this.thirdCurrency === 'DIM') {
-            this.rateValue = this.selectedMosaic.amount * this.marketapi.getExRate().nem2dim;
-        } else {
-            this.rateValue = this.selectedMosaic.amount * this.marketapi.getExRate().nemRate;
-        }
+    // onChangeRateValue(value) {
+    //     if (this.thirdCurrency === 'DIM') {
+    //         this.rateValue = this.selectedMosaic.amount * this.marketapi.getExRate().nem2dim;
+    //     } else {
+    //         this.rateValue = this.selectedMosaic.amount * this.marketapi.getExRate().nemRate;
+    //     }
 
-    }
+    // }
 
     /**
      * Retrieves current account owned mosaics  into this.balance
@@ -78,7 +93,6 @@ export class BalancePage {
                 }
                 if (refresher) refresher.complete();
                 else loader.dismiss();
-                this.onChangeRateValue('DIM');
             });
         });
     }

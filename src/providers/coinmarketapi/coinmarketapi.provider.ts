@@ -31,11 +31,11 @@ export class CoinmarketapiProvider {
     })
   }
 
-  getExRate(): any {
-    return {
-      nem2dim: this.nemRate/this.dimRate,
-      dimRate: this.dimRate,
-      nemRate: this.nemRate
+  getExRate(coindes: string): any {
+    if (coindes === 'nem:xem'){
+      return this.nemRate;
+    } else if (coindes === 'dim:coin') {
+      return this.dimRate;
     }
   }
 }

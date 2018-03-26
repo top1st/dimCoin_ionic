@@ -8,24 +8,26 @@
         </ion-title>
     </ion-navbar>
 </ion-header>
-<ion-content id="receive" padding >
+<ion-content id="receive" padding>
     <div class="default-padding">
         <div id="invoiceInfoQR"><img [src]="qrCode.src"></div>
 
-        <ion-item id="transfer-input1">
-            <ion-label>
-                {{'RECIPIENT_ADDRESS' | translate}}
-            </ion-label>
-            <ion-label>
+        <ion-item id="transfer-input1" text-wrap>
+                <b>
+                {{'RECIPIENT_ADDRESS' | translate}}</b>
+                <p class="black-color">
                 {{selectedWallet?.address.pretty()}}
-            </ion-label>
+                </p>
         </ion-item>
+        <button ion-button block on-click="copyRecipientAddress()">
+            COPY ADDRESS
+        </button>
 
         <ion-item>
             <ion-label>
                 {{'AMOUNT' | translate}}
             </ion-label>
-            <ion-input type="number" min="0" name="amount" [(ngModel)]="amount" placeholder="" (ngModelChange)="updateQR()"></ion-input>
+            <ion-input name="amount" type="number" min="0" [(ngModel)]="amount" placeholder (ngModelChange)="updateQR()"></ion-input>
         </ion-item>
 
         <ion-item>
@@ -35,10 +37,10 @@
         </ion-item>
 
         <ion-item>
-            <ion-label stacked>
+            <ion-label stacked="">
                 {{'MESSAGE' | translate}}
             </ion-label>
-            <ion-textarea rows="5" name="message" placeholder="" [(ngModel)]="message" (ngModelChange)="updateQR()"></ion-textarea>
+            <ion-textarea name="message" rows="5" placeholder [(ngModel)]="message" (ngModelChange)="updateQR()"></ion-textarea>
         </ion-item>
 
     </div>

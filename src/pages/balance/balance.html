@@ -19,16 +19,20 @@
 
         <ion-list name="selected-mosaic" radio-group [(ngModel)]="selectedMosaic">
             <ion-item *ngFor="let mosaic of balance">
-                <ion-radio [value]="mosaic" (ionSelect)="onChangeRateValue(thirdCurrency)"></ion-radio>
+                <ion-radio [value]="mosaic"></ion-radio>
 
                 <ion-label><b>
                     {{ mosaic.amount }}</b>
-                    {{ mosaic.mosaicId.description() }}
+                    {{ mosaic.mosaicId.description()}}
+                    
+                    <span>{{currencyRate(mosaic)}}</span>
+                    <span class="rightlabel"><b>{{currencySum(mosaic)}}</b></span>
                 </ion-label>
+                
             </ion-item>
         </ion-list>
 
-        <ion-item ng-if="selected-mosaic">
+        <!-- <ion-item ng-if="selected-mosaic">
             <ion-label>Equal Rate</ion-label>
             <ion-label><b>
                 {{rateValue}}
@@ -37,7 +41,7 @@
                     <ion-option value="DIM">DIM</ion-option>
                     <ion-option value="USD">USD</ion-option>
                 </ion-select>
-          </ion-item>
+          </ion-item> -->
 
     </form>
 

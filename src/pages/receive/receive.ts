@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, AlertController, LoadingController} from 'ionic-angular';
+import {NavController, NavParams, AlertController, LoadingController, Platform} from 'ionic-angular';
 import {Keyboard} from '@ionic-native/keyboard';
 import {TranslateService} from '@ngx-translate/core';
 
@@ -15,6 +15,7 @@ import {SimpleWallet, MosaicTransferable} from 'nem-library';
 
 import 'rxjs/add/operator/toPromise';
 import * as kjua from "kjua";
+import { Clipboard } from '@ionic-native/clipboard';
 
 @Component({
     selector: 'page-receive',
@@ -27,7 +28,7 @@ export class ReceivePage {
     message: any;
     qrCode: any;
 
-    constructor(public navCtrl: NavController, private navParams: NavParams, private nem: NemProvider, private wallet: WalletProvider, private alert: AlertProvider, private toast: ToastProvider, private barcodeScanner: BarcodeScanner, private alertCtrl: AlertController, private loading: LoadingController, private keyboard: Keyboard, public translate: TranslateService) {
+    constructor(public navCtrl: NavController, private navParams: NavParams, private nem: NemProvider, private wallet: WalletProvider, private alert: AlertProvider, private toast: ToastProvider, private barcodeScanner: BarcodeScanner, private alertCtrl: AlertController, private loading: LoadingController, private keyboard: Keyboard, public translate: TranslateService, private platform: Platform, private clipboard: Clipboard) {
 
         this.amount = 0;
         this.selectedMosaic = <MosaicTransferable>navParams.get('selectedMosaic');
@@ -70,6 +71,21 @@ export class ReceivePage {
     public updateQR() {
         let infoQR = this.nem.generateInvoiceQRText(this.selectedWallet.address, this.amount, this.message);
         this._encodeQrCode(infoQR);
+
+    }
+
+    public copyRecipientAddress(){
+        if(this.platform.is('cordova')){
+            let copiableAddress = "";
+            if(this.selectedWallet.address){
+                copiableAddress = this.selectedWallet.address.pretty();
+            }
+            this.clipboard.copy(copiableAddress).then(_=>{
+                this.toast.showRecipientAddressCopyCorrect();
+            });
+        } else {
+            this.alert.showFunctionallityOnlyAvailableInMobileDevices();
+        }
 
     }
 
