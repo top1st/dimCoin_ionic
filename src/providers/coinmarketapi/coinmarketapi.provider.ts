@@ -16,7 +16,7 @@ export class CoinmarketapiProvider {
   task: number;
 
   constructor(public http: Http) {
-    this.task = setInterval(this.refreshData.bind(this), 10000);
+    this.task = setInterval(this.refreshData.bind(this), 60000);
     this.nemRate = 1;
     this.dimRate = 1;
     this.refreshData();
@@ -38,4 +38,5 @@ export class CoinmarketapiProvider {
       return this.dimRate;
     }
   }
+
 }

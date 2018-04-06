@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar color="light" hideBackButton="true">
-        <button class="force-display" ion-button menuToggle>
+        <button ion-button menuToggle class="force-display">
             <ion-icon name="ios-menu-outline"></ion-icon>
         </button>
         <ion-title>
@@ -11,37 +11,29 @@
 <ion-content id="balance" padding>
 
     <ion-refresher (ionRefresh)="getBalance($event)">
-        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="{{'PULL_TO_REFRESH' | translate}} " refreshingSpinner="circles" refreshingText="{{'REFRESHING' | translate}} ">
+        <ion-refresher-content
+                pullingIcon="arrow-dropdown"
+                pullingText="{{'PULL_TO_REFRESH' | translate}} "
+                refreshingSpinner="circles"
+                refreshingText="{{'REFRESHING' | translate}} ">
         </ion-refresher-content>
     </ion-refresher>
 
     <form>
 
-        <ion-list name="selected-mosaic" radio-group [(ngModel)]="selectedMosaic">
+        <ion-list radio-group [(ngModel)]="selectedMosaic" name="selected-mosaic">
             <ion-item *ngFor="let mosaic of balance">
                 <ion-radio [value]="mosaic"></ion-radio>
 
                 <ion-label><b>
                     {{ mosaic.amount }}</b>
-                    {{ mosaic.mosaicId.description()}}
-                    
+                    {{ mosaic.mosaicId.description() }}
                     <span>{{currencyRate(mosaic)}}</span>
                     <span class="rightlabel"><b>{{currencySum(mosaic)}}</b></span>
                 </ion-label>
-                
+
             </ion-item>
         </ion-list>
-
-        <!-- <ion-item ng-if="selected-mosaic">
-            <ion-label>Equal Rate</ion-label>
-            <ion-label><b>
-                {{rateValue}}
-            </b></ion-label>
-            <ion-select #C [(ngModel)]="thirdCurrency" [compareWith]="compareFn" name="selected_asset" multiple="false" (ionChange)="onChangeRateValue(C.value)">
-                    <ion-option value="DIM">DIM</ion-option>
-                    <ion-option value="USD">USD</ion-option>
-                </ion-select>
-          </ion-item> -->
 
     </form>
 
@@ -49,16 +41,18 @@
 </ion-content>
 
 
-<ion-footer no-shadow="">
-    <ion-toolbar class="background-white" position="bottom">
+<ion-footer no-shadow>
+    <ion-toolbar position="bottom" class="background-white">
         <div class="row">
             <div class="col col-50">
-                <button ion-button block color="positive" on-click="goToTransfer()" [disabled]="!selectedMosaic">
+                <button ion-button block color="positive"
+                        on-click="goToTransfer()" [disabled]="!selectedMosaic">
                     {{'TRANSFER_BUTTON' | translate}}
                 </button>
             </div>
             <div class="col col-50">
-                <button ion-button block color="secondary" on-click="goToReceive()" [disabled]="!selectedMosaic">
+                <button ion-button block color="secondary"
+                        on-click="goToReceive()" [disabled]="!selectedMosaic">
                     {{'RECEIVE_BUTTON' | translate}}
                 </button>
             </div>

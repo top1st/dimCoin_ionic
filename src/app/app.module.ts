@@ -137,7 +137,7 @@ export function createTranslateLoader(http: Http) {
         ToastProvider,
         ContactProvider,
         LanguageProvider,
-    CoinmarketapiProvider
+    CoinmarketapiProvider,
     ]
 })
 export class AppModule {

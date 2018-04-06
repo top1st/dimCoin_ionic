@@ -1,20 +1,20 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
-import { MenuController, NavController, LoadingController, NavParams } from 'ionic-angular';
-import { TranslateService } from '@ngx-translate/core';
+import {MenuController, NavController, LoadingController, NavParams} from 'ionic-angular';
+import {TranslateService} from '@ngx-translate/core';
 
-import { NemProvider } from '../../providers/nem/nem.provider';
-import { AlertProvider } from '../../providers/alert/alert.provider';
-import { WalletProvider } from '../../providers/wallet/wallet.provider';
-
+import {NemProvider} from '../../providers/nem/nem.provider';
+import {AlertProvider} from '../../providers/alert/alert.provider';
+import {WalletProvider} from '../../providers/wallet/wallet.provider';
 import { CoinmarketapiProvider } from '../../providers/coinmarketapi/coinmarketapi.provider';
 
-import { TransferPage } from '../transfer/transfer';
-import { ReceivePage } from '../receive/receive';
+import {TransferPage} from '../transfer/transfer';
+import {ReceivePage} from '../receive/receive';
 
-import { LoginPage } from '../login/login';
+import {LoginPage} from '../login/login';
 
-import { Wallet, MosaicTransferable } from 'nem-library';
+import {Wallet, MosaicTransferable, DimCoin} from 'nem-library';
+
 
 @Component({
     selector: 'page-balance',
@@ -25,12 +25,9 @@ export class BalancePage {
     balance: MosaicTransferable[];
     selectedMosaic: MosaicTransferable;
     addressToSendAssets: string;
-    thirdCurrency: string;
-    rateValue: number;
 
-    constructor(public navCtrl: NavController, private nem: NemProvider, private navParams: NavParams, private wallet: WalletProvider, private menu: MenuController, public translate: TranslateService, private alert: AlertProvider, private loading: LoadingController, private marketapi: CoinmarketapiProvider) {
+    constructor(public navCtrl: NavController, private nem: NemProvider, private navParams:NavParams, private wallet: WalletProvider, private menu: MenuController, public translate: TranslateService, private alert: AlertProvider, private loading: LoadingController, private marketapi: CoinmarketapiProvider) {
         this.addressToSendAssets = navParams.get('address') || null;
-        this.thirdCurrency = "DIM";
     }
 
     ionViewWillEnter() {
@@ -60,25 +57,12 @@ export class BalancePage {
         return `$ ${this.precisionRound(exrate * mosaic.amount, 2)}`;
     }
 
-    compareFn(e1: any, e2: any): boolean {
-        let result = e1.name ? e1.name === e2.name : e1 === e2;
-        return result;
-    }
-
-    // onChangeRateValue(value) {
-    //     if (this.thirdCurrency === 'DIM') {
-    //         this.rateValue = this.selectedMosaic.amount * this.marketapi.getExRate().nem2dim;
-    //     } else {
-    //         this.rateValue = this.selectedMosaic.amount * this.marketapi.getExRate().nemRate;
-    //     }
-
-    // }
 
     /**
      * Retrieves current account owned mosaics  into this.balance
      * @param refresher  Ionic refresher or false, if called on View Enter
      */
-    public getBalance(refresher: any) {
+    public getBalance(refresher:any) {
         this.translate.get('PLEASE_WAIT', {}).subscribe((res: string) => {
             let loader = this.loading.create({
                 content: res
@@ -90,6 +74,10 @@ export class BalancePage {
                 this.balance = balance;
                 if (this.balance.length > 0) {
                     this.selectedMosaic = this.balance[0];
+                    for(let i = 0; i < this.balance.length; i++) {
+                        if(this.balance[i].mosaicId.description() === 'dim:coin'){
+                        }
+                    }
                 }
                 if (refresher) refresher.complete();
                 else loader.dismiss();
@@ -100,8 +88,8 @@ export class BalancePage {
     /**
      * Moves to transfer, by default with mosaic selected
      */
-    goToTransfer() {
-        if (this.selectedMosaic.properties.transferable) {
+    goToTransfer(){
+        if(this.selectedMosaic.properties.transferable){
             this.navCtrl.push(TransferPage, {
                 'selectedMosaic': this.selectedMosaic,
                 'address': this.addressToSendAssets
@@ -110,10 +98,10 @@ export class BalancePage {
         else this.alert.showMosaicNotTransferable();
     }
 
-    /**
-      * Moves to receive, by default with mosaic selected
-      */
-    goToReceive() {
+   /**
+     * Moves to receive, by default with mosaic selected
+     */
+    goToReceive(){
         this.navCtrl.push(ReceivePage, {
             selectedMosaic: this.selectedMosaic
         });

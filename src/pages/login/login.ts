@@ -6,13 +6,10 @@ import {NemProvider} from '../../providers/nem/nem.provider';
 import {AlertProvider} from '../../providers/alert/alert.provider';
 import {WalletProvider} from '../../providers/wallet/wallet.provider';
 
-import { CoinmarketapiProvider } from '../../providers/coinmarketapi/coinmarketapi.provider';
-
 import {BalancePage} from '../balance/balance';
 import {SignupPage} from '../signup/signup';
 
 import {SimpleWallet} from 'nem-library';
-
 
 @Component({
     selector: 'page-login',
@@ -25,7 +22,7 @@ export class LoginPage {
     common: any;
 
 
-    constructor(public navCtrl: NavController, private nem: NemProvider, private wallet: WalletProvider,  private alert: AlertProvider, private loading: LoadingController, private menu: MenuController, public translate: TranslateService, private marketapi:CoinmarketapiProvider) {
+    constructor(public navCtrl: NavController, private nem: NemProvider, private wallet: WalletProvider,  private alert: AlertProvider, private loading: LoadingController, private menu: MenuController, public translate: TranslateService) {
 
         this.wallets = [];
         this.selectedWallet = null;

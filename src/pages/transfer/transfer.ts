@@ -13,7 +13,6 @@ import {BalancePage} from '../balance/balance';
 import {LoginPage} from '../login/login';
 
 import {SimpleWallet, MosaicTransferable, Address, XEM, NemAnnounceResult} from 'nem-library';
-
 import {Observable} from "nem-library/node_modules/rxjs";
 
 import 'rxjs/add/operator/toPromise';
