@@ -13,7 +13,7 @@ import {ReceivePage} from '../receive/receive';
 
 import {LoginPage} from '../login/login';
 
-import {Wallet, MosaicTransferable, DimCoin} from 'nem-library';
+import {Wallet, MosaicTransferable} from 'nem-library';
 
 
 @Component({
