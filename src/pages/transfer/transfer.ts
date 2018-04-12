@@ -255,7 +255,7 @@ export class TransferPage {
         this.barcodeScanner.scan().then((barcodeData) => {
             let addresObject = JSON.parse(barcodeData.text);
             this.rawRecipient = addresObject.data.addr;
-            this.amount = addresObject.data.amount;
+            this.amount = addresObject.data.amount || this.amount;
             this.message = addresObject.data.msg;
         }, (err) => {
             console.log("Error on scan");
